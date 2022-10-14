@@ -9,9 +9,10 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 # add the library path to the search list so that find_package works.
+# using semicolon to append to the end of the list.
 # the library path is the "extern" folder designated in the common repository readme. Go check that out.
 # $ENV{} uses the environment variable define in the system.
-set(CMAKE_PREFIX_PATH "$ENV{SKSE64LIB_ROOT}")
+set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};$ENV{SKSE64LIB_ROOT}")
 
 # skse64 uses the MT(multithreaded static) runtime library, so we'll have to force it.
 # otherwise, building dlls defaults to the MD (multithreaded dynamic) library, causing mismatch errors.
