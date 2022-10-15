@@ -1,0 +1,34 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "cxx20r",
+            "displayName": "cxx20 Release",
+            "description": "Sets Visual Studio generator, build and install directory",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                // You can set this two variables to require c++20.
+                // Change 20 to 17 to require c++17. You get the idea.
+                "CMAKE_CXX_STANDARD": "20", 
+                "CMAKE_CXX_STANDARD_REQUIRED": true,
+                // setup vcpkg path.
+                "CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}",
+                // skse64 uses the MT(multithreaded static) runtime library, so we'll have to force it.
+                // otherwise, building dlls defaults to the MD (multithreaded dynamic) library, causing mismatch errors.
+                "CMAKE_MSVC_RUNTIME_LIBRARY": "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "cxx20r",
+            "description": "",
+            "displayName": "cxx20 Release",
+            "configurePreset": "cxx20r",
+            "configuration": "Release"
+        }
+    ]
+}
